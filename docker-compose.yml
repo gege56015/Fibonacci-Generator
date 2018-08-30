@@ -1,0 +1,26 @@
+version: '3.3'
+
+services:
+        
+    nginx:
+        build:
+            context: ./nginx
+            dockerfile: Dockerfile
+        ports:
+            - '8000:80'
+        restart: always
+        networks:
+            - appnet
+        depends_on:
+            - fibonacci_app
+
+    fibonacci_app:
+        build:
+            context: ./app
+            dockerfile: Dockerfile
+        restart: always
+        networks:
+            - appnet
+
+networks:
+    appnet:
